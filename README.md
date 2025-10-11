@@ -81,6 +81,7 @@ Backend Setup (Spring Boot)
 1. Clone the repository:
 
 git clone https://github.com/CharanTerugu/CricketPlayers.git
+
 cd CricketPlayers
 
 
@@ -130,11 +131,17 @@ ng serve
 
 Method	Endpoint	Description
 
-POST	/any/user/authentcate	Authenticate user and generate JWT
+POST	/any/user/authentcate
+Authenticate user and generate JWT
+
 POST	/admin/team	Create new team (Admin only)
+
 GET	/common/teams	Fetch all teams (user &Admin)
+
 POST	admin/addplayer	Add new player (Admin only)
+
 PUT	/players/release	Release player from team
+
 POST	/players/select	Assign player to a team and send email
 
 
@@ -144,9 +151,12 @@ POST	/players/select	Assign player to a team and send email
 🧩 Architecture Overview
 
 Angular (Frontend)
+
       ↓ REST API calls
 Spring Boot (Backend)
+
       ↓
 Spring Data JPA
+
       ↓
 MySQL Database
