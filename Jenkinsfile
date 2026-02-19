@@ -2,8 +2,8 @@ pipeline {
     agent any
  
     environment {
-        BACKEND_IMAGE = "spring-app:1.0"
-        FRONTEND_IMAGE = "angular-app:1.0"
+        BACKEND_IMAGE = "spring-app:${BUILD_NUMBER}"
+        FRONTEND_IMAGE = "angular-app:${BUILD_NUMBER}"
     }
  
     stages {
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 sh '''
                   cd Angular
-                  npm install
+                  npm ci
                   npm run build
                 '''
             }
@@ -39,6 +39,13 @@ pipeline {
                 sh '''
                   docker build -t $BACKEND_IMAGE Spring
                   docker build -t $FRONTEND_IMAGE Angular
+                '''
+            }
+        stage('Security scan-TRIVY') {
+            steps {
+                sh '''
+                  trivy image --severity HIGH,CRITICAL --exit-code 1 $FRONTEND_IMAGE
+                  trivy image --severity HIGH,CRITICAL --exit-code 1 $BACKEND_IMAGE
                 '''
             }
         }
