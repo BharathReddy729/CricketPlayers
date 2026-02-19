@@ -41,6 +41,7 @@ pipeline {
                   docker build -t $FRONTEND_IMAGE Angular
                 '''
             }
+        }
         stage('Security scan-TRIVY') {
             steps {
                 sh '''
@@ -71,3 +72,4 @@ pipeline {
         }
     }
 
+}
